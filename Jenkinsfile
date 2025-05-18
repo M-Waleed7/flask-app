@@ -1,22 +1,27 @@
 pipeline {
     agent any
-
-    environment {
-        PROJECT_NAME = "webapp-ci"
-        COMPOSE_FILE = "docker-compose.yml"
-    }
-
     stages {
-        stage('Clone Repo') {
+        stage('Clean DevOps directory') {
             steps {
-                git 'https://github.com/M-Waleed7/flask-app'
+                sh '''
+                if [ -d "/var/lib/jenkins/DevOps/" ]; then
+                    find "/var/lib/jenkins/DevOps/" -mindepth 1 -delete
+                    echo "Cleaned DevOps directory."
+                fi
+                '''
             }
         }
 
-        stage('Build & Run Containers') {
+        stage('Clone from GitHub') {
             steps {
-                script {
-                    sh "docker-compose -p ${PROJECT_NAME} -f ${COMPOSE_FILE} up -d --build"
+                sh 'git clonehttps://github.com/M-Waleed7/flask-app /var/lib/jenkins/DevOps/app/'
+            }
+        }
+
+        stage('Run Docker Compose') {
+            steps {
+                dir('/var/lib/jenkins/DevOps/app/') {
+                    sh 'docker compose -p myflaskapp up -d'
                 }
             }
         }
