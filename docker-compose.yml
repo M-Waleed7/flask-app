@@ -3,7 +3,7 @@ services:
     build: .
     image: ${DOCKER_USERNAME}/simple-flask-app:latest
     ports:
-      - "8080:8080"
+      - "9090:9090"
     volumes:
       - db-data:/app/data
     environment:
