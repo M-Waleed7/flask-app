@@ -1,0 +1,35 @@
+services:
+  web:
+    build: .
+    image: ${DOCKER_USERNAME}/simple-flask-app:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - db-data:/app/data
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=production
+      - PORT=8080
+    secrets:
+      - db_user
+      - db_password
+      - secret_key
+    restart: always
+    networks:
+      - flask-network
+
+networks:
+  flask-network:
+    driver: bridge
+
+volumes:
+  db-data:
+    driver: local
+
+secrets:
+  db_user:
+    file: ./secrets/db_user.txt
+  db_password:
+    file: ./secrets/db_password.txt
+  secret_key:
+    file: ./secrets/secret_key.txt
