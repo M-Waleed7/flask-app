@@ -55,6 +55,3 @@ simple-flask-app
    docker-compose up
    ```
 
-## Usage
-
-Access the application by navigating to `http://localhost:5000` in your web browser. You should see the homepage rendered from `index.html`.
