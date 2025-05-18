@@ -14,7 +14,7 @@ pipeline {
 
         stage('Clone from GitHub') {
             steps {
-                sh 'git clonehttps://github.com/M-Waleed7/flask-app /var/lib/jenkins/DevOps/app/'
+                sh 'git clone https://github.com/M-Waleed7/flask-app /var/lib/jenkins/DevOps/app/'
             }
         }
 
