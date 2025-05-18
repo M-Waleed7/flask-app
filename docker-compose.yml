@@ -9,7 +9,7 @@ services:
     environment:
       - FLASK_APP=app.py
       - FLASK_ENV=production
-      - PORT=8080
+      - PORT=9090
     secrets:
       - db_user
       - db_password
