@@ -10,6 +10,6 @@ COPY . .
 # Create directory for SQLite database
 RUN mkdir -p /app/data
 
-EXPOSE 8080
+EXPOSE 9090
 
 CMD ["python", "app.py"]
