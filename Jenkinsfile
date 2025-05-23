@@ -1,5 +1,6 @@
 pipeline {
     agent any
+
     stages {
         stage('Clean DevOps directory') {
             steps {
@@ -18,10 +19,16 @@ pipeline {
             }
         }
 
-        stage('Run Docker Compose') {
+        stage('Rebuild and Run Docker Compose') {
             steps {
                 dir('/var/lib/jenkins/DevOps/app/') {
-                    sh 'docker compose -p myflaskapp up -d'
+                    sh '''
+                    echo "Stopping and removing old containers..."
+                    docker compose -p myflaskapp down
+
+                    echo "Rebuilding image and starting container..."
+                    docker compose -p myflaskapp up -d --build
+                    '''
                 }
             }
         }
